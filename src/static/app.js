@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Theme toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  const updateThemeToggle = () => {
+    const isDark =
+      document.documentElement.getAttribute("data-theme") === "dark";
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+  };
+  themeToggle.addEventListener("click", () => {
+    const isDark =
+      document.documentElement.getAttribute("data-theme") === "dark";
+    if (isDark) {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+    updateThemeToggle();
+  });
+  updateThemeToggle();
+
   // DOM elements
   const activitiesList = document.getElementById("activities-list");
   const messageDiv = document.getElementById("message");
